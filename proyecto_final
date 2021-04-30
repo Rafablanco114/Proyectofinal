@@ -1,0 +1,81 @@
+//Rafael Blanco 2020-10459
+using System;
+
+namespace Proyecto_Final
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float pago, Interes, Capital, Monto_prestamo, interes_anual, interes_mensual;
+            int fila, Plazo, i;
+
+            
+            DateTime fecha = new DateTime(2021, 01, 01);
+
+            Console.Write("  Introduce el monto del prestamo:      ");
+            float.TryParse(Console.ReadLine(), out Monto_prestamo);
+            Console.Write("  Introduce la tasa de interes:         ");
+            float.TryParse(Console.ReadLine(), out interes_anual);
+            Console.Write("Introduce la cantidad de meses a pagar: ");
+            int.TryParse(Console.ReadLine(), out Plazo);
+
+            interes_mensual = (interes_anual / 100) / 12;
+
+            pago = interes_mensual + 1;
+            pago = (float)Math.Pow(pago, Plazo);
+            pago = pago - 1;
+            pago = interes_mensual / pago;
+            pago = interes_mensual + pago;
+            pago = Monto_prestamo * pago;
+
+
+
+            Console.WriteLine();
+            fila = 1;
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.Write(" \tFecha de pago\t\t", ( fecha));
+            Console.Write("\tMonto a pagar \t\t");
+            Console.Write("Interes \t\t");
+            Console.Write("Capital Pagado \t\t");
+            Console.Write("Deuda restante \t");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.Write("\t0");
+            Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t{0}", Monto_prestamo);
+
+
+            for (i = 1; i <= Plazo; i++)
+            {
+
+
+                fecha = fecha.AddDays(31);
+                Console.Write("\t {0}\t", fecha.ToString("dd-MM-yy"));
+
+
+                Console.Write("\t\t{0}", pago);
+
+
+                Interes = interes_mensual * Monto_prestamo;
+                Console.Write("\t\t{0}\t", Interes);
+
+
+                Capital = pago - Interes;
+                Console.Write("\t\t{0}\t", Capital);
+
+
+                Monto_prestamo = Monto_prestamo - Capital;
+                Console.Write("\t{0}\t\t\t", Monto_prestamo);
+
+
+                fila = fila + 1;
+                Console.WriteLine();
+
+
+            }
+            Console.ReadLine();
+
+        }
+    }
+}
